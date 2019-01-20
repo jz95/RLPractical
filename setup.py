@@ -18,5 +18,6 @@ setup(name='rlp',
       install_requires=[
           'numpy',
           'tqdm',
+          'jupyter'
       ],
       zip_safe=False)

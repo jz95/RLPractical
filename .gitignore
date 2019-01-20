@@ -1,3 +1,6 @@
+rlp.egg-info
 notebooks/.ipynb_checkpoints
 *.pyc
-rlp.egg-info
+*.sublime-project
+*.sublime-workspace
+*.html
