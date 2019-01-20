@@ -1,8 +1,10 @@
 # RLPractical
 This python library is meant to help the students choosing Reinforcement Learning in University of Edinburgh. Basic Algorithms presented in lecture or on the [textbook](http://incompleteideas.net/book/the-book-2nd.html) would be implemented. **Note: It's still an unstable version. API migh change later on.** And Docs are still incompelte.
 
-install:
+Clone this repo and install.
 ```
+git clone git@github.com:JZ95/RLPractical.git
+cd RLPractical
 python setup.py install
 ```
 or use develop mode:
