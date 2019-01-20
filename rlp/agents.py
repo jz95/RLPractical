@@ -78,7 +78,7 @@ class EpsGreedy(ActionValueMethod):
 
     def action(self):
         # exploit
-        if self.random_state.uniform(0, 1) > self.eps:
+        if self.random_state.uniform(0, 1) >= self.eps:
             At = np.argmax(self.aciton_value_estimate)
         # explore
         else:

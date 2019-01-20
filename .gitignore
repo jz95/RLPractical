@@ -4,3 +4,4 @@ notebooks/.ipynb_checkpoints
 *.sublime-project
 *.sublime-workspace
 *.html
+.DS_Store

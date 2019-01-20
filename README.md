@@ -17,23 +17,23 @@ open python shell, and type
 import rlp
 ```
 -------------
-## Usage
+## Example
 ```
 from rlp.envs import MultiArmedBandit
 from rlp.agents import EpsGreedy
 
 means = np.random.normal(0, 1, 10)               # assign mean rewards for 10 arms
 stds = np.ones(10)                               # assign std for 10 arms
-initQ = np.zeros(10)                         # assign inital action-value estimates Q0
+initQ = np.zeros(10)                         	 # assign inital action-value estimates Q0
 
 bandit = MultiArmedBandit(k=10, means=means, stds=stds)
-agent = EpsGreedy(eps, Q0=initQ)              # build eps-greedy agent
+agent = EpsGreedy(eps, Q0=initQ)                 # build eps-greedy agent
 
 # run agent 1000 timesteps
 for _ in range(1000):
-    At = agent.action()                       # agent selects action
-    Rt = bandit.reward(At)                    # environment gives reward based on agent's action
-    agent.get_reward(Rt)                      # agent reveives reward and updates status
+    At = agent.action()                          # agent selects action
+    Rt = bandit.reward(At)                       # environment gives reward based on agent's action
+    agent.get_reward(Rt)                         # agent reveives reward and updates status
     agent.update()
 ```
 
@@ -42,9 +42,16 @@ for _ in range(1000):
 -------------
 ## Run Notebooks
 Please install jupyter first.
-After installing jupyter and rlp, in cmd type 
+After installing jupyter and rlp, in cmd type to open NoteBook Server.
 ```
 jupyter notebook
+```
+Open an another shell and
+```
 cd notebooks
 ```
 See the notebooks and have fun with tuning params.
+
+![ScreenShot](./imgs/img1.png)
+
+ENJOY!
