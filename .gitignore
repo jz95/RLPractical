@@ -1,7 +1,7 @@
+.DS_Store
 rlp.egg-info
 notebooks/.ipynb_checkpoints
 *.pyc
 *.sublime-project
 *.sublime-workspace
 *.html
-.DS_Store

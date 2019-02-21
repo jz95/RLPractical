@@ -1,51 +1,44 @@
-from abc import ABC, abstractmethod
-from numpy.random import RandomState
-from . import utilis
+from .. import utilis
+from ..base import BaseAgent
+from abc import abstractmethod
 import numpy as np
 
 
-class Agent(ABC):
-    """ Abstract Class for Agent.
+class MultiArmedBanditBaseAgent(BaseAgent):
+    """ Abstract Class for Multi Armed Bandit Agent
     """
 
     def __init__(self, seed):
-        self.random_state = RandomState(seed)
-        self.actions = []
+        BaseAgent.__init__(seed)
         self.rewards = []
-
-    @abstractmethod
-    def update(self):
-        """ Update agent's params.
-        """
-        raise NotImplemented
-
-    @abstractmethod
-    def action(self):
-        """ Agent selects action.
-        """
-        raise NotImplemented
+        self.actions = []
 
     def get_reward(self, Rt):
-        """ Agent gets reward from Environment.
+        """ A simple method to get a scalar reward from the environment.
         """
-        self.Rt = Rt
-        self.rewards.append(Rt)
+        self.get_response(Rt, S=None)
+
+    def get_response(self, R, S):
+        """ Get response from env, including reward and new state.
+        Please use get_reward().
+        ==========================
+        Params:
+        R - scalar reward.
+        S - new state, which is ignored in this case.
+        """
+        self.rewards.append(R)
 
     @abstractmethod
     def _step_size(self):
-        raise NotImplemented
-
-    # @abstractmethod
-    # def reset(self):
-    #     raise NotImplemented
+        return self.alpha
 
 
-class ActionValueMethod(Agent):
+class ActionValueMethod(MultiArmedBanditBaseAgent):
     """ Abstract Class for Action Value Methods
     """
 
     def __init__(self, Q0, seed):
-        Agent.__init__(self, seed)
+        MultiArmedBanditBaseAgent.__init__(self, seed)
         self.aciton_value_estimate = Q0
         self.n_arms = len(Q0)
         self.action_cnt = np.zeros((self.n_arms, ))
@@ -163,7 +156,7 @@ class UCB(ActionValueMethod):
         return 'UCB(c = %.2f, alpha=%.2f)' % (self.c, self.alpha)
 
 
-class GradientBandit(Agent):
+class GradientBandit(MultiArmedBanditBaseAgent):
     """Gradient Bandit Algorithm.
     """
 
@@ -174,7 +167,7 @@ class GradientBandit(Agent):
         baseline - use baseline or not.
         seed - random seed.
         """
-        Agent.__init__(self, seed)
+        MultiArmedBanditBaseAgent.__init__(self, seed)
         self.Hs = H0
         self.prob = utilis.softmax(self.Hs)
         self.n_arms = len(H0)

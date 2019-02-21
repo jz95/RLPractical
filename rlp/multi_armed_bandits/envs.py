@@ -1,23 +1,9 @@
-from abc import ABC, abstractmethod
-from numpy.random import RandomState
+from ..base import BaseEnvironment
 
 
-class Environment(ABC):
-    """ Abstract Class for Environment.
-    """
-
-    def __init__(self, seed):
-        self.random_state = RandomState(seed)
-
-    @abstractmethod
-    def reward(self, action):
-        """ Give a scalar reward based on agent action.
-        """
-        raise NotImplemented
-
-
-class MultiArmedBandit(Environment):
+class MultiArmedBandit(BaseEnvironment):
     """ Multi-Armed Bandit Environment.
+    A demo fot the 10-armed testbed case in page-28.
     Give rewards sampled from Gaussian distribution.
     """
 
@@ -30,15 +16,20 @@ class MultiArmedBandit(Environment):
         stds - list of standard deviations of k gaussian distributions.
         seed - random seed.
         """
-        Environment.__init__(self, seed)
+        BaseEnvironment.__init__(self, seed)
         self.n_arms = k
         self.reward_dist_means = means
         self.reward_dist_stds = stds
 
     def reward(self, action):
+        """Bandit gives reward based on agent's action
+        """
         mu = self.reward_dist_means[action]
         sig = self.reward_dist_stds[action]
         return self.random_state.normal(mu, sig)
+
+    def _transit(self):
+        pass
 
     def __repr__(self):
         name = '%d-Armed Bandit' % self.n_arms
@@ -49,6 +40,7 @@ class MultiArmedBandit(Environment):
 
 class NonStationaryMultiArmedBandit(MultiArmedBandit):
     """ NonStationary MultiArmedBadit.
+    A demo for exercise-2.5 in page-33.
     The mean of each reward distribution would get an increment sampled
     from a zero-mean 0.01-std gaussian.
     """
@@ -61,5 +53,7 @@ class NonStationaryMultiArmedBandit(MultiArmedBandit):
         self.reward_dist_means += noise
 
     def reward(self, action):
+        """Bandit gives reward based on agent's action
+        """
         self._update()
-        return MultiArmedBandit.reward(self, action)
+        return MultiArmedBandit.reward(self, action, None)

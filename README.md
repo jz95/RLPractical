@@ -1,5 +1,5 @@
 # RLPractical
-This python library is meant to help the students choosing Reinforcement Learning in University of Edinburgh. Basic algorithms mentioned in the lecture or on the [textbook](http://incompleteideas.net/book/the-book-2nd.html) would be implemented. **Note: It's still an unstable version. API migh change later on.** And Docs are still incompelte.
+This python library is meant to help the students choosing [Reinforcement Learning](https://www.inf.ed.ac.uk/teaching/courses/rl/) in University of Edinburgh. Basic algorithms mentioned in the lecture or on the [textbook](http://incompleteideas.net/book/the-book-2nd.html) would be implemented. **Note: It's still an unstable version. API might change later on.** And Docs are still incompelte.
 
 Clone this repo and install rlp.
 ```
@@ -18,9 +18,10 @@ import rlp
 ```
 -------------
 ## Example
+### 10-Armed Bandit DEMO
 ```
-from rlp.envs import MultiArmedBandit
-from rlp.agents import EpsGreedy
+from rlp.multi_armed_bandits.envs import MultiArmedBandit
+from rlp.multi_armed_bandits.agents import EpsGreedy
 
 means = np.random.normal(0, 1, 10)               # assign mean rewards for 10 arms
 stds = np.ones(10)                               # assign std for 10 arms
@@ -37,6 +38,10 @@ for _ in range(1000):
     agent.update()
 ```
 
+### Finite Markov Decision Process DEMO
+```
+TBD
+```
 
 
 -------------
@@ -52,7 +57,7 @@ cd notebooks
 ```
 See the notebooks and have fun with tuning params.
 
-![ScreenShot](./imgs/img1.png)
+![ScreenShot](./imgs/readme_img1.png)
 
 
 🍺 ENJOY!
