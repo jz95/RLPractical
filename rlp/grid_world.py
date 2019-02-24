@@ -1,5 +1,4 @@
 from .base import BaseEnvironment, BaseAgent
-import numpy as np
 """
 This module provides basic API for the simple gridworld example.
 """
@@ -52,7 +51,7 @@ class GridWorld(BaseEnvironment):
         new_state = GridWorld.clip_range(y_, 0, self.width - 1),\
             GridWorld.clip_range(x_, 0, self.length - 1)
 
-        status = (new_state in self.terminal_states)
+        status = int(new_state in self.terminal_states)
         if status:
             reward = 0
 
@@ -108,7 +107,7 @@ class GridWorldAgent(BaseAgent):
         self.Q = {}
         for i in range(self.width):
             for j in range(self.length):
-                self.Q[(i, j)] = [0 for a in ACTIONS]
+                self.Q[(i, j)] = dict([(a, 0) for a in ACTIONS])
 
     def _init_policy(self):
         """ initialize policy as a uniform distribution.
@@ -116,14 +115,10 @@ class GridWorldAgent(BaseAgent):
         self.policy = {}
         for i in range(self.width):
             for j in range(self.length):
-                self.policy[(i, j)] = [1 / len(ACTIONS) for a in ACTIONS]
+                self.policy[(i, j)] = dict([(a, 1 / len(ACTIONS)) for a in ACTIONS])
 
     def action(self):
         """ Agent make action.
         """
-        return GridWorldAgent._choice(self.policy, self.currState)
-
-    @staticmethod
-    def _choice(policy, state):
-        probs = policy[state]
-        return np.random.choice(ACTIONS, p=probs)
+        probs = [self.policy[self.currState][a] for a in ACTIONS]
+        return self.random_state.choice(ACTIONS, probs)

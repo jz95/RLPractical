@@ -9,11 +9,11 @@ class BaseAgent(ABC):
     def __init__(self, seed):
         self.random_state = RandomState(seed)
 
-    # @abstractmethod
-    # def update(self):
-    #     """ Update agent's params.
-    #     """
-    #     raise NotImplemented
+    @abstractmethod
+    def update(self):
+        """ Update agent's params.
+        """
+        raise NotImplemented
 
     @abstractmethod
     def action(self):
@@ -21,11 +21,11 @@ class BaseAgent(ABC):
         """
         raise NotImplemented
 
-    # @abstractmethod
-    # def get_response(self, R, S):
-    #     """ Agent gets reward and new state from Environment.
-    #     """
-    #     NotImplemented
+    @abstractmethod
+    def set_experience(self, reward, new_state):
+        """ Agent gets reward and new state from Environment.
+        """
+        NotImplemented
 
 
 class BaseEnvironment(ABC):
@@ -34,12 +34,6 @@ class BaseEnvironment(ABC):
 
     def __init__(self, seed):
         self.random_state = RandomState(seed)
-
-    # @abstractmethod
-    # def _transit(self):
-    #     """ transit from old state to new state
-    #     """
-    #     raise NotImplemented
 
     @abstractmethod
     def act(self, action, state):

@@ -28,3 +28,40 @@ def argmax(container):
         else:
             break
     return ret
+
+
+def element_wise_product(dict1, dict2):
+    assert dict1.keys() == dict2.keys()
+    ret = {}
+    for key in dict1:
+        ret[key] = dict1[key] * dict2[key]
+    return ret
+
+
+def possion_prob(n, lambda_, truncate_threshold=None):
+    if truncate_threshold is not None and n >= truncate_threshold:
+        return 1 - sum([possion_prob(i, lambda_) for i in range(truncate_threshold)])
+
+    if (n, lambda_) in possion_prob.memo:
+        return possion_prob.memo[(n, lambda_)]
+
+    if n in possion_prob.factorial:
+        factorial = possion_prob.factorial[n]
+    else:
+        for i in sorted(possion_prob.factorial.keys(), reverse=True):
+            if i < n:
+                factorial = possion_prob.factorial[i]
+                i += 1
+                while i <= n:
+                    factorial = factorial * i
+                    possion_prob.factorial[i] = factorial
+                    i += 1
+                break
+            else:
+                continue
+    ret = np.power(lambda_, n) * np.exp(- 1 * lambda_) / factorial
+    possion_prob.memo[(n, lambda_)] = ret
+    return ret
+
+possion_prob.factorial = {0: 1, 1: 1}
+possion_prob.memo = {}

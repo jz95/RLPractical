@@ -9,24 +9,20 @@ class MultiArmedBanditBaseAgent(BaseAgent):
     """
 
     def __init__(self, seed):
-        BaseAgent.__init__(seed)
+        super(MultiArmedBanditBaseAgent, self).__init__(seed)
         self.rewards = []
         self.actions = []
 
-    def get_reward(self, Rt):
+        self.timestep = 0
+
+        self.At = None
+        self.Rt = 0
+
+    def set_experience(self, reward):
         """ A simple method to get a scalar reward from the environment.
         """
-        self.get_response(Rt, S=None)
-
-    def get_response(self, R, S):
-        """ Get response from env, including reward and new state.
-        Please use get_reward().
-        ==========================
-        Params:
-        R - scalar reward.
-        S - new state, which is ignored in this case.
-        """
-        self.rewards.append(R)
+        self.Rt = reward
+        self.rewards.append(reward)
 
     @abstractmethod
     def _step_size(self):
@@ -38,15 +34,10 @@ class ActionValueMethod(MultiArmedBanditBaseAgent):
     """
 
     def __init__(self, Q0, seed):
-        MultiArmedBanditBaseAgent.__init__(self, seed)
+        super(ActionValueMethod, self).__init__(seed)
         self.aciton_value_estimate = Q0
         self.n_arms = len(Q0)
         self.action_cnt = np.zeros((self.n_arms, ))
-
-        self.timestep = 0
-
-        self.At = None
-        self.Rt = 0
 
     def update(self):
         Qt = self.aciton_value_estimate[self.At]
@@ -66,7 +57,7 @@ class EpsGreedy(ActionValueMethod):
         Q0 - initial estimate for action value. Can be a list or numpy array.
         seed - random seed.
         """
-        ActionValueMethod.__init__(self, Q0, seed)
+        super(EpsGreedy, self).__init__(Q0, seed)
         self.eps = eps
 
     def action(self):
@@ -103,7 +94,7 @@ class EpsGreedyConstStep(EpsGreedy):
         seed - random seed.
         """
         assert alpha <= 1 and alpha > 0
-        EpsGreedy.__init__(self, eps, Q0, seed)
+        super(EpsGreedyConstStep, self).__init__(eps, Q0, seed)
         self.alpha = alpha
 
     # step size is a constatnt alpha
@@ -129,7 +120,7 @@ class UCB(ActionValueMethod):
         Q0 - initial estimate for action value. Can be a list or numpy array.
         seed - random seed.
         """
-        ActionValueMethod.__init__(self, Q0, seed)
+        super(UCB, self).__init__(Q0, seed)
         self.c = conf_level
         self.alpha = alpha
 
@@ -167,17 +158,12 @@ class GradientBandit(MultiArmedBanditBaseAgent):
         baseline - use baseline or not.
         seed - random seed.
         """
-        MultiArmedBanditBaseAgent.__init__(self, seed)
+        super(GradientBandit, self).__init__(seed)
         self.Hs = H0
         self.prob = utilis.softmax(self.Hs)
         self.n_arms = len(H0)
         self.use_baseline = baseline
         self.alpha = alpha
-
-        self.timestep = 0
-
-        self.At = None
-        self.Rt = 0
 
     def update(self):
         baseline = np.mean(self.rewards) if self.use_baseline else 0
