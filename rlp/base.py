@@ -36,7 +36,7 @@ class BaseEnvironment(ABC):
         self.random_state = RandomState(seed)
 
     @abstractmethod
-    def act(self, action, state):
+    def react(self, state, action):
         """ Give a scalar reward and next state based on current action and state.
         """
         raise NotImplemented

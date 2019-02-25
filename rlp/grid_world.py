@@ -30,10 +30,10 @@ class GridWorld(BaseEnvironment):
         self.terminal_states = terminals
         super(GridWorld, self).__init__(seed)
 
-    def act(self, action, state):
+    def react(self, state, action):
         """Params:
-        action - int, action denoted the movement of agent at one step。
         state - tuple, representing coordinate in grid world。
+        action - int, action denoted the movement of agent at one step。
         =====================
         Return:
         reward, new_state, status

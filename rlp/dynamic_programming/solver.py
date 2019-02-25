@@ -4,7 +4,7 @@ import numpy as np
 
 
 class DynamicProgrammingSolver:
-    """dp solver.
+    """ dp solver API.
     """
 
     def __init__(self, agent, model, threshold=1e-3):

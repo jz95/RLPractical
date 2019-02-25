@@ -6,6 +6,9 @@ from itertools import product
 
 
 class DynamicProgrammingEnvModel(MDP):
+    """ Environment for Dynamic Programming.
+    """
+
     def __init__(self, seed=None):
         super(DynamicProgrammingEnvModel, self).__init__(seed)
 
@@ -15,6 +18,9 @@ class DynamicProgrammingEnvModel(MDP):
 
 
 class DynamicProgrammingAgent(BaseAgent):
+    """ Agent for Dynamic Programming.
+    """
+
     def __init__(self, seed=None):
         super(DynamicProgrammingAgent, self).__init__(seed)
 
@@ -32,6 +38,9 @@ class DynamicProgrammingAgent(BaseAgent):
 
 
 class DPGridWorldEnv(DynamicProgrammingEnvModel, GridWorld):
+    """ Grid World Environment for Dynamic Programming.
+    """
+
     def __init__(self, width, length, terminals, seed=None):
         GridWorld.__init__(self, width, length, terminals, seed)
 
@@ -62,6 +71,9 @@ class DPGridWorldEnv(DynamicProgrammingEnvModel, GridWorld):
 
 
 class DPGridWorldAgent(DynamicProgrammingAgent, GridWorldAgent):
+    """ Grid World Agent for Dynamic Programming.
+    """
+
     def __init__(self, width, length, discountRatio, seed=None):
         GridWorldAgent.__init__(self, width, length, discountRatio, seed)
 
@@ -109,6 +121,9 @@ class JackCarRentalEnv(DynamicProgrammingEnvModel):
 
 
 class JackCarRentalAgent(DynamicProgrammingAgent):
+    """ DEMO Agent for jack's car rental problem.
+    """
+
     ACTIONS = list(range(-5, 6))  # predefined possbile actions
 
     def __init__(self, discountRatio, seed=None):
