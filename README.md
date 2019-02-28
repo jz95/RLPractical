@@ -62,6 +62,22 @@ for k in range(10):                                            # run policy iter
 TBD
 ```
 
+### TD(n) Methods
+```
+TBD
+```
+
+### Planning
+```
+TBD
+```
+
+### function approximation
+```
+TBD
+```
+
+
 -------------
 ## Run Notebooks
 Please install jupyter first.
@@ -77,5 +93,8 @@ See the notebooks and have fun.
 
 ![ScreenShot](./imgs/readme_img1.png)
 
-
 🍺 ENJOY!
+
+------
+## Acknowledgement
+Thanks to ☘️ [Iris Wang](https://github.com/iriskarling) and 👧🏻 [Jie Cui](https://github.com/Cuijie12358) for their kind encouragement and selfless help.
