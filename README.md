@@ -1,5 +1,5 @@
 # RLPractical
-This python library is meant to help the students doing [Reinforcement Learning](https://www.inf.ed.ac.uk/teaching/courses/rl/) in University of Edinburgh. Basic algorithms mentioned in the lecture or on the [textbook](http://incompleteideas.net/book/the-book-2nd.html) would be implemented. You are encouraged to tune the parameters in the algorithm to test your understanding or even implement your own agent. **Note: It's still an unstable version. API might change later on.** And Docs are still incompelte.
+This python library is meant to help the students doing [Reinforcement Learning](https://www.inf.ed.ac.uk/teaching/courses/rl/) in University of Edinburgh. Basic algorithms mentioned in the lecture or on the [textbook](http://incompleteideas.net/book/the-book-2nd.html) would be implemented. You are encouraged to tune the parameters in the algorithm to test your understanding or even implement your own agent. **Note: It's still an unstable version. API might change later on.** And Docs are still incompelte. This lib is implemented by python3, thus we assume `python = python3` in all documentations here.
 
 Clone this repo and install rlp.
 ```

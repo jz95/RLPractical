@@ -13,8 +13,11 @@ ACTIONS = [HIT, STICK]
 IN_PROGRESS, TERMINAL = 0, 1
 
 
-def get_card():
-    ret = np.random.choice(DECK, p=CARD_PROBS)
+def get_card(uniform=False):
+    if uniform:
+        ret = np.random.choice(DECK)
+    else:
+        ret = np.random.choice(DECK, p=CARD_PROBS)
     ret = int(ret) if ret != 'A' else ret
     return ret
 
@@ -47,6 +50,7 @@ class BlackJackEnv(BaseEnvironment):
     """
 
     def __init__(self, seed=None):
+        super(BlackJackEnv, self).__init__(seed)
         self._init_cards()
 
     def _init_cards(self):
@@ -132,6 +136,27 @@ class BlackJackEnv(BaseEnvironment):
         return self.usable_ace, self.player_sum, self.dealer_cards[0]
 
 
+class BlackJackEnvES(BlackJackEnv):
+    """ Black jack environment with exlopring start.
+    """
+
+    def __init__(self, seed=None):
+        super(BlackJackEnvES, self).__init__(seed)
+
+    def _init_es(self):
+        self.dealer_cards = [get_card(uniform=True) for i in range(2)]
+        self.dealer_sum, _ = sum_over_cards(self.dealer_cards)
+
+        self.player_cards = ['A'] + [get_card(uniform=True)]
+        self.player_sum, self.usable_ace = sum_over_cards(self.player_cards)
+
+    def reset(self):
+        """ reset by a exlopring start.
+        """
+        self._init_es()
+        return self.usable_ace, self.player_sum, self.dealer_cards[0]
+
+
 class BlackJackAgent(BaseAgent):
     """ Abstract class for Black Jack Agent in page 93.
     """
@@ -190,9 +215,8 @@ class NaiveBlackJackAgent(BlackJackAgent):
         for t in range(T - 1, -1, -1):
             state = self.experiences[t]
             reward = self.history_rewards[t]
-            if state in self.experiences[:t - 1]:
-                G = self.discountRatio * G + reward
-            else:
+            G = self.discountRatio * G + reward
+            if state not in self.experiences[:t - 1]:
                 self.returns[state].append(G)
                 self.V[state] = np.mean(self.returns[state])
 
@@ -233,12 +257,10 @@ class AdvancedBlackJackAgent(BlackJackAgent):
         for t in range(T - 1, -1, -1):
             state, action = self.experiences[t]
             reward = self.history_rewards[t]
-            if (state, action) in self.experiences[:t - 1]:
-                G = self.discountRatio * G + reward
-            else:
+            G = self.discountRatio * G + reward
+            if (state, action) not in self.experiences[:t - 1]:
                 self.returns[(state, action)].append(G)
-                self.Q[(state, action)] = np.mean(
-                    self.returns[(state, action)])
+                self.Q[state][action] = np.mean(self.returns[(state, action)])
 
                 opt_acts = utilis.argmax(self.Q[state])
 
