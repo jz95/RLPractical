@@ -1,5 +1,5 @@
 # RLPractical
-This python library is meant to help the students doing [Reinforcement Learning](https://www.inf.ed.ac.uk/teaching/courses/rl/) in University of Edinburgh. Basic algorithms mentioned in the lecture or on the [textbook](http://incompleteideas.net/book/the-book-2nd.html) would be implemented. You are encouraged to tune the parameters in the algorithm to test your understanding or even implement your own agent. **Note: It's still an unstable version. API might change later on.** And Docs are still incompelte. This lib is implemented by python3, thus we assume `python = python3` in all documentations here.
+This python library is meant to help the students doing [Reinforcement Learning](https://www.inf.ed.ac.uk/teaching/courses/rl/) in University of Edinburgh. Basic algorithms mentioned in the lecture or on the [textbook](http://incompleteideas.net/book/the-book-2nd.html) would be implemented. You are encouraged to tune the parameters in the algorithm to test your understanding or even implement your own agent. **Note: It's still an unstable version. API might change later on.** And Docs are still incompelte. Also here is a [pointer](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction) to another popular repo for implementing these alogorithms.
 
 Clone this repo and install rlp.
 ```
@@ -12,10 +12,8 @@ or use develop mode:
 python setup.py develop
 ```
 
-open python shell, and type the following command to test if install successfully
-```
-import rlp
-```
+open python shell, and type command `import rlp` to test if install successfully.
+
 -------------
 ## Example
 ### 10-Armed Bandit DEMO
@@ -62,7 +60,7 @@ for k in range(10):                                            # run policy iter
 TBD
 ```
 
-### TD(n) Methods
+### TD Methods
 ```
 TBD
 ```
@@ -72,16 +70,20 @@ TBD
 TBD
 ```
 
-### function approximation
+### Function Approximation
 ```
 TBD
 ```
 
+### Gradient Policy Methods
+```
+TBD
+```
 
 -------------
 ## Run Notebooks
-Please install jupyter first.
-After installing jupyter and rlp, open NoteBook Server.
+Make sure you have [jupyter](https://jupyter.org/) installed on your machine.
+After installing rlp, open NoteBook Server.
 ```
 jupyter notebook
 ```
@@ -94,7 +96,3 @@ See the notebooks and have fun.
 ![ScreenShot](./imgs/readme_img1.png)
 
 🍺 ENJOY!
-
-------
-## Acknowledgement
-Thanks to ☘️ [Iris Wang](https://github.com/iriskarling) and 👧🏻 [Jie Cui](https://github.com/Cuijie12358) for their kind encouragement and selfless help.

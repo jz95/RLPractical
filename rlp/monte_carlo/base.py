@@ -93,7 +93,7 @@ class BlackJackEnv(BaseEnvironment):
         else:
             return 1, None, TERMINAL
 
-    def react(self, state, action):
+    def step(self, state, action):
         assert action in (HIT, STICK)
 
         if action == STICK:

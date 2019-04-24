@@ -17,6 +17,7 @@ class MDP(BaseEnvironment):
         action - given action
 
         Returns:
-        dict: (nextState, reward) => prob, type: tuple => float
+        joint probability distribution over next_state and reward
+        dict: (next_state, reward) => prob, type: tuple => float
         """
         raise NotImplementedError

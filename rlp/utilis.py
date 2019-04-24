@@ -39,6 +39,13 @@ def element_wise_product(dict1, dict2):
 
 
 def possion_prob(n, lambda_, truncate_threshold=None):
+    """ compute possion dist prob
+        according to : p = exp(-lambda) * lambda^n / n!
+    Params:
+    n, lambda_: as defined in formula
+    truncate_threshold: if n >= truncate_threshold,
+        Pr{n} = 1 - (Pr{0} + Pr{1} + Pr{2} + .. Pr{truncate_threshold}), default None.
+    """
     if truncate_threshold is not None and n >= truncate_threshold:
         return 1 - sum([possion_prob(i, lambda_) for i in range(truncate_threshold)])
 

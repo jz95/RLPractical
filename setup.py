@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(name='rlp',
       version='0.1',
-      description='Reinforcement learning algorithm implements',
+      description='DEMO for Reinforcement learning algorithm',
       classifiers=[
           'Development Status :: 2 - Pre-Alpha',
           'Environment :: MacOS X',
